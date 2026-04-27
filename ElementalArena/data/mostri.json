@@ -1,0 +1,802 @@
+[
+  {
+    "nome": "Oscuro Demone",
+    "puntiVitaMax": 42,
+    "elemento": "OMBRA",
+    "dannoBase": 6,
+    "expFornita": 28,
+    "moneteRilasciate": 21
+  },
+  {
+    "nome": "Infuocato Demone",
+    "puntiVitaMax": 54,
+    "elemento": "FULMINE",
+    "dannoBase": 8,
+    "expFornita": 36,
+    "moneteRilasciate": 27
+  },
+  {
+    "nome": "BOSS: Gelido Slime",
+    "puntiVitaMax": 99,
+    "elemento": "ARIA",
+    "dannoBase": 13,
+    "expFornita": 44,
+    "moneteRilasciate": 33
+  },
+  {
+    "nome": "Gigante Diavolo",
+    "puntiVitaMax": 78,
+    "elemento": "TERRA",
+    "dannoBase": 11,
+    "expFornita": 52,
+    "moneteRilasciate": 39
+  },
+  {
+    "nome": "Oscuro Minotauro",
+    "puntiVitaMax": 90,
+    "elemento": "FUOCO",
+    "dannoBase": 12,
+    "expFornita": 60,
+    "moneteRilasciate": 45
+  },
+  {
+    "nome": "BOSS: Piccolo Demone",
+    "puntiVitaMax": 153,
+    "elemento": "LUCE",
+    "dannoBase": 19,
+    "expFornita": 68,
+    "moneteRilasciate": 51
+  },
+  {
+    "nome": "Gigante Manticora",
+    "puntiVitaMax": 114,
+    "elemento": "PIANTA",
+    "dannoBase": 15,
+    "expFornita": 76,
+    "moneteRilasciate": 57
+  },
+  {
+    "nome": "Oscuro Slime",
+    "puntiVitaMax": 126,
+    "elemento": "ARIA",
+    "dannoBase": 17,
+    "expFornita": 84,
+    "moneteRilasciate": 63
+  },
+  {
+    "nome": "BOSS: Piccolo Grifone",
+    "puntiVitaMax": 207,
+    "elemento": "ACQUA",
+    "dannoBase": 25,
+    "expFornita": 92,
+    "moneteRilasciate": 69
+  },
+  {
+    "nome": "Antico Demone",
+    "puntiVitaMax": 150,
+    "elemento": "LUCE",
+    "dannoBase": 20,
+    "expFornita": 100,
+    "moneteRilasciate": 75
+  },
+  {
+    "nome": "Corrotto Lich",
+    "puntiVitaMax": 162,
+    "elemento": "ARIA",
+    "dannoBase": 21,
+    "expFornita": 108,
+    "moneteRilasciate": 81
+  },
+  {
+    "nome": "BOSS: Feroce Gargoyle",
+    "puntiVitaMax": 261,
+    "elemento": "ARIA",
+    "dannoBase": 32,
+    "expFornita": 116,
+    "moneteRilasciate": 87
+  },
+  {
+    "nome": "Spettrale Demone",
+    "puntiVitaMax": 186,
+    "elemento": "LUCE",
+    "dannoBase": 24,
+    "expFornita": 124,
+    "moneteRilasciate": 93
+  },
+  {
+    "nome": "Piccolo Chimera",
+    "puntiVitaMax": 198,
+    "elemento": "TERRA",
+    "dannoBase": 26,
+    "expFornita": 132,
+    "moneteRilasciate": 99
+  },
+  {
+    "nome": "BOSS: Feroce Titano",
+    "puntiVitaMax": 315,
+    "elemento": "OMBRA",
+    "dannoBase": 38,
+    "expFornita": 140,
+    "moneteRilasciate": 105
+  },
+  {
+    "nome": "Oscuro Grifone",
+    "puntiVitaMax": 222,
+    "elemento": "PIANTA",
+    "dannoBase": 29,
+    "expFornita": 148,
+    "moneteRilasciate": 111
+  },
+  {
+    "nome": "Piccolo Gargoyle",
+    "puntiVitaMax": 234,
+    "elemento": "FULMINE",
+    "dannoBase": 30,
+    "expFornita": 156,
+    "moneteRilasciate": 117
+  },
+  {
+    "nome": "BOSS: Corrotto Scheletro",
+    "puntiVitaMax": 369,
+    "elemento": "FUOCO",
+    "dannoBase": 44,
+    "expFornita": 164,
+    "moneteRilasciate": 123
+  },
+  {
+    "nome": "Gigante Titano",
+    "puntiVitaMax": 258,
+    "elemento": "TERRA",
+    "dannoBase": 33,
+    "expFornita": 172,
+    "moneteRilasciate": 129
+  },
+  {
+    "nome": "Infuocato Ciclope",
+    "puntiVitaMax": 270,
+    "elemento": "FULMINE",
+    "dannoBase": 35,
+    "expFornita": 180,
+    "moneteRilasciate": 135
+  },
+  {
+    "nome": "BOSS: Etereo Drago",
+    "puntiVitaMax": 423,
+    "elemento": "PIANTA",
+    "dannoBase": 51,
+    "expFornita": 188,
+    "moneteRilasciate": 141
+  },
+  {
+    "nome": "Antico Drago",
+    "puntiVitaMax": 294,
+    "elemento": "ACQUA",
+    "dannoBase": 38,
+    "expFornita": 196,
+    "moneteRilasciate": 147
+  },
+  {
+    "nome": "Oscuro Pipistrello",
+    "puntiVitaMax": 306,
+    "elemento": "OMBRA",
+    "dannoBase": 39,
+    "expFornita": 204,
+    "moneteRilasciate": 153
+  },
+  {
+    "nome": "BOSS: Feroce Idra",
+    "puntiVitaMax": 477,
+    "elemento": "OMBRA",
+    "dannoBase": 57,
+    "expFornita": 212,
+    "moneteRilasciate": 159
+  },
+  {
+    "nome": "Infuocato Golems",
+    "puntiVitaMax": 330,
+    "elemento": "ARIA",
+    "dannoBase": 42,
+    "expFornita": 220,
+    "moneteRilasciate": 165
+  },
+  {
+    "nome": "Piccolo Lich",
+    "puntiVitaMax": 342,
+    "elemento": "FULMINE",
+    "dannoBase": 44,
+    "expFornita": 228,
+    "moneteRilasciate": 171
+  },
+  {
+    "nome": "BOSS: Antico Scheletro",
+    "puntiVitaMax": 531,
+    "elemento": "FULMINE",
+    "dannoBase": 63,
+    "expFornita": 236,
+    "moneteRilasciate": 177
+  },
+  {
+    "nome": "Oscuro Chimera",
+    "puntiVitaMax": 366,
+    "elemento": "OMBRA",
+    "dannoBase": 47,
+    "expFornita": 244,
+    "moneteRilasciate": 183
+  },
+  {
+    "nome": "Feroce Pipistrello",
+    "puntiVitaMax": 378,
+    "elemento": "ARIA",
+    "dannoBase": 48,
+    "expFornita": 252,
+    "moneteRilasciate": 189
+  },
+  {
+    "nome": "BOSS: Piccolo Lich",
+    "puntiVitaMax": 585,
+    "elemento": "OMBRA",
+    "dannoBase": 70,
+    "expFornita": 260,
+    "moneteRilasciate": 195
+  },
+  {
+    "nome": "Infuocato Drago",
+    "puntiVitaMax": 402,
+    "elemento": "FULMINE",
+    "dannoBase": 51,
+    "expFornita": 268,
+    "moneteRilasciate": 201
+  },
+  {
+    "nome": "Feroce Diavolo",
+    "puntiVitaMax": 414,
+    "elemento": "ARIA",
+    "dannoBase": 53,
+    "expFornita": 276,
+    "moneteRilasciate": 207
+  },
+  {
+    "nome": "BOSS: Etereo Drago",
+    "puntiVitaMax": 639,
+    "elemento": "PIANTA",
+    "dannoBase": 76,
+    "expFornita": 284,
+    "moneteRilasciate": 213
+  },
+  {
+    "nome": "Infuocato Ciclope",
+    "puntiVitaMax": 438,
+    "elemento": "LUCE",
+    "dannoBase": 56,
+    "expFornita": 292,
+    "moneteRilasciate": 219
+  },
+  {
+    "nome": "Oscuro Goblin",
+    "puntiVitaMax": 450,
+    "elemento": "OMBRA",
+    "dannoBase": 57,
+    "expFornita": 300,
+    "moneteRilasciate": 225
+  },
+  {
+    "nome": "BOSS: Gelido Ciclope",
+    "puntiVitaMax": 693,
+    "elemento": "FUOCO",
+    "dannoBase": 82,
+    "expFornita": 308,
+    "moneteRilasciate": 231
+  },
+  {
+    "nome": "Antico Idra",
+    "puntiVitaMax": 474,
+    "elemento": "FULMINE",
+    "dannoBase": 60,
+    "expFornita": 316,
+    "moneteRilasciate": 237
+  },
+  {
+    "nome": "Etereo Pipistrello",
+    "puntiVitaMax": 486,
+    "elemento": "FULMINE",
+    "dannoBase": 62,
+    "expFornita": 324,
+    "moneteRilasciate": 243
+  },
+  {
+    "nome": "BOSS: Oscuro Gargoyle",
+    "puntiVitaMax": 747,
+    "elemento": "LUCE",
+    "dannoBase": 88,
+    "expFornita": 332,
+    "moneteRilasciate": 249
+  },
+  {
+    "nome": "Infuocato Minotauro",
+    "puntiVitaMax": 510,
+    "elemento": "TERRA",
+    "dannoBase": 65,
+    "expFornita": 340,
+    "moneteRilasciate": 255
+  },
+  {
+    "nome": "Gigante Chimera",
+    "puntiVitaMax": 522,
+    "elemento": "ACQUA",
+    "dannoBase": 66,
+    "expFornita": 348,
+    "moneteRilasciate": 261
+  },
+  {
+    "nome": "BOSS: Spettrale Titano",
+    "puntiVitaMax": 801,
+    "elemento": "PIANTA",
+    "dannoBase": 95,
+    "expFornita": 356,
+    "moneteRilasciate": 267
+  },
+  {
+    "nome": "Gigante Scheletro",
+    "puntiVitaMax": 546,
+    "elemento": "TERRA",
+    "dannoBase": 69,
+    "expFornita": 364,
+    "moneteRilasciate": 273
+  },
+  {
+    "nome": "Feroce Arpia",
+    "puntiVitaMax": 558,
+    "elemento": "TERRA",
+    "dannoBase": 71,
+    "expFornita": 372,
+    "moneteRilasciate": 279
+  },
+  {
+    "nome": "BOSS: Oscuro Chimera",
+    "puntiVitaMax": 855,
+    "elemento": "LUCE",
+    "dannoBase": 101,
+    "expFornita": 380,
+    "moneteRilasciate": 285
+  },
+  {
+    "nome": "Spettrale Troll",
+    "puntiVitaMax": 582,
+    "elemento": "LUCE",
+    "dannoBase": 74,
+    "expFornita": 388,
+    "moneteRilasciate": 291
+  },
+  {
+    "nome": "Infuocato Demone",
+    "puntiVitaMax": 594,
+    "elemento": "FULMINE",
+    "dannoBase": 75,
+    "expFornita": 396,
+    "moneteRilasciate": 297
+  },
+  {
+    "nome": "BOSS: Feroce Idra",
+    "puntiVitaMax": 909,
+    "elemento": "ACQUA",
+    "dannoBase": 107,
+    "expFornita": 404,
+    "moneteRilasciate": 303
+  },
+  {
+    "nome": "Oscuro Pipistrello",
+    "puntiVitaMax": 618,
+    "elemento": "OMBRA",
+    "dannoBase": 78,
+    "expFornita": 412,
+    "moneteRilasciate": 309
+  },
+  {
+    "nome": "Etereo Idra",
+    "puntiVitaMax": 630,
+    "elemento": "TERRA",
+    "dannoBase": 80,
+    "expFornita": 420,
+    "moneteRilasciate": 315
+  },
+  {
+    "nome": "BOSS: Spettrale Idra",
+    "puntiVitaMax": 963,
+    "elemento": "PIANTA",
+    "dannoBase": 114,
+    "expFornita": 428,
+    "moneteRilasciate": 321
+  },
+  {
+    "nome": "Piccolo Beholder",
+    "puntiVitaMax": 654,
+    "elemento": "PIANTA",
+    "dannoBase": 83,
+    "expFornita": 436,
+    "moneteRilasciate": 327
+  },
+  {
+    "nome": "Gelido Drago",
+    "puntiVitaMax": 666,
+    "elemento": "FULMINE",
+    "dannoBase": 84,
+    "expFornita": 444,
+    "moneteRilasciate": 333
+  },
+  {
+    "nome": "BOSS: Oscuro Ragno",
+    "puntiVitaMax": 1017,
+    "elemento": "OMBRA",
+    "dannoBase": 120,
+    "expFornita": 452,
+    "moneteRilasciate": 339
+  },
+  {
+    "nome": "Corrotto Drago",
+    "puntiVitaMax": 690,
+    "elemento": "PIANTA",
+    "dannoBase": 87,
+    "expFornita": 460,
+    "moneteRilasciate": 345
+  },
+  {
+    "nome": "Piccolo Arpia",
+    "puntiVitaMax": 702,
+    "elemento": "ARIA",
+    "dannoBase": 89,
+    "expFornita": 468,
+    "moneteRilasciate": 351
+  },
+  {
+    "nome": "BOSS: Piccolo Arpia",
+    "puntiVitaMax": 1071,
+    "elemento": "FUOCO",
+    "dannoBase": 126,
+    "expFornita": 476,
+    "moneteRilasciate": 357
+  },
+  {
+    "nome": "Feroce Golems",
+    "puntiVitaMax": 726,
+    "elemento": "FULMINE",
+    "dannoBase": 92,
+    "expFornita": 484,
+    "moneteRilasciate": 363
+  },
+  {
+    "nome": "Etereo Diavolo",
+    "puntiVitaMax": 738,
+    "elemento": "FULMINE",
+    "dannoBase": 93,
+    "expFornita": 492,
+    "moneteRilasciate": 369
+  },
+  {
+    "nome": "BOSS: Etereo Goblin",
+    "puntiVitaMax": 1125,
+    "elemento": "FUOCO",
+    "dannoBase": 133,
+    "expFornita": 500,
+    "moneteRilasciate": 375
+  },
+  {
+    "nome": "Infuocato Drago",
+    "puntiVitaMax": 762,
+    "elemento": "FULMINE",
+    "dannoBase": 96,
+    "expFornita": 508,
+    "moneteRilasciate": 381
+  },
+  {
+    "nome": "Oscuro Ragno",
+    "puntiVitaMax": 774,
+    "elemento": "PIANTA",
+    "dannoBase": 98,
+    "expFornita": 516,
+    "moneteRilasciate": 387
+  },
+  {
+    "nome": "BOSS: Antico Ciclope",
+    "puntiVitaMax": 1179,
+    "elemento": "FULMINE",
+    "dannoBase": 139,
+    "expFornita": 524,
+    "moneteRilasciate": 393
+  },
+  {
+    "nome": "Feroce Grifone",
+    "puntiVitaMax": 798,
+    "elemento": "FUOCO",
+    "dannoBase": 101,
+    "expFornita": 532,
+    "moneteRilasciate": 399
+  },
+  {
+    "nome": "Feroce Lich",
+    "puntiVitaMax": 810,
+    "elemento": "PIANTA",
+    "dannoBase": 102,
+    "expFornita": 540,
+    "moneteRilasciate": 405
+  },
+  {
+    "nome": "BOSS: Antico Orco",
+    "puntiVitaMax": 1233,
+    "elemento": "OMBRA",
+    "dannoBase": 145,
+    "expFornita": 548,
+    "moneteRilasciate": 411
+  },
+  {
+    "nome": "Piccolo Arpia",
+    "puntiVitaMax": 834,
+    "elemento": "OMBRA",
+    "dannoBase": 105,
+    "expFornita": 556,
+    "moneteRilasciate": 417
+  },
+  {
+    "nome": "Piccolo Troll",
+    "puntiVitaMax": 846,
+    "elemento": "TERRA",
+    "dannoBase": 107,
+    "expFornita": 564,
+    "moneteRilasciate": 423
+  },
+  {
+    "nome": "BOSS: Gigante Titano",
+    "puntiVitaMax": 1287,
+    "elemento": "FUOCO",
+    "dannoBase": 151,
+    "expFornita": 572,
+    "moneteRilasciate": 429
+  },
+  {
+    "nome": "Gigante Viverna",
+    "puntiVitaMax": 870,
+    "elemento": "FUOCO",
+    "dannoBase": 110,
+    "expFornita": 580,
+    "moneteRilasciate": 435
+  },
+  {
+    "nome": "Oscuro Ciclope",
+    "puntiVitaMax": 882,
+    "elemento": "LUCE",
+    "dannoBase": 111,
+    "expFornita": 588,
+    "moneteRilasciate": 441
+  },
+  {
+    "nome": "BOSS: Gelido Titano",
+    "puntiVitaMax": 1341,
+    "elemento": "FUOCO",
+    "dannoBase": 158,
+    "expFornita": 596,
+    "moneteRilasciate": 447
+  },
+  {
+    "nome": "Oscuro Diavolo",
+    "puntiVitaMax": 906,
+    "elemento": "ARIA",
+    "dannoBase": 114,
+    "expFornita": 604,
+    "moneteRilasciate": 453
+  },
+  {
+    "nome": "Piccolo Slime",
+    "puntiVitaMax": 918,
+    "elemento": "FULMINE",
+    "dannoBase": 116,
+    "expFornita": 612,
+    "moneteRilasciate": 459
+  },
+  {
+    "nome": "BOSS: Piccolo Ciclope",
+    "puntiVitaMax": 1395,
+    "elemento": "ARIA",
+    "dannoBase": 164,
+    "expFornita": 620,
+    "moneteRilasciate": 465
+  },
+  {
+    "nome": "Gelido Diavolo",
+    "puntiVitaMax": 942,
+    "elemento": "PIANTA",
+    "dannoBase": 119,
+    "expFornita": 628,
+    "moneteRilasciate": 471
+  },
+  {
+    "nome": "Etereo Beholder",
+    "puntiVitaMax": 954,
+    "elemento": "ACQUA",
+    "dannoBase": 120,
+    "expFornita": 636,
+    "moneteRilasciate": 477
+  },
+  {
+    "nome": "BOSS: Feroce Arpia",
+    "puntiVitaMax": 1449,
+    "elemento": "FUOCO",
+    "dannoBase": 170,
+    "expFornita": 644,
+    "moneteRilasciate": 483
+  },
+  {
+    "nome": "Etereo Slime",
+    "puntiVitaMax": 978,
+    "elemento": "ACQUA",
+    "dannoBase": 123,
+    "expFornita": 652,
+    "moneteRilasciate": 489
+  },
+  {
+    "nome": "Infuocato Pipistrello",
+    "puntiVitaMax": 990,
+    "elemento": "LUCE",
+    "dannoBase": 125,
+    "expFornita": 660,
+    "moneteRilasciate": 495
+  },
+  {
+    "nome": "BOSS: Infuocato Ciclope",
+    "puntiVitaMax": 1503,
+    "elemento": "FULMINE",
+    "dannoBase": 177,
+    "expFornita": 668,
+    "moneteRilasciate": 501
+  },
+  {
+    "nome": "Antico Drago",
+    "puntiVitaMax": 1014,
+    "elemento": "FULMINE",
+    "dannoBase": 128,
+    "expFornita": 676,
+    "moneteRilasciate": 507
+  },
+  {
+    "nome": "Piccolo Beholder",
+    "puntiVitaMax": 1026,
+    "elemento": "ARIA",
+    "dannoBase": 129,
+    "expFornita": 684,
+    "moneteRilasciate": 513
+  },
+  {
+    "nome": "BOSS: Infuocato Idra",
+    "puntiVitaMax": 1557,
+    "elemento": "LUCE",
+    "dannoBase": 183,
+    "expFornita": 692,
+    "moneteRilasciate": 519
+  },
+  {
+    "nome": "Oscuro Troll",
+    "puntiVitaMax": 1050,
+    "elemento": "FULMINE",
+    "dannoBase": 132,
+    "expFornita": 700,
+    "moneteRilasciate": 525
+  },
+  {
+    "nome": "Antico Titano",
+    "puntiVitaMax": 1062,
+    "elemento": "ARIA",
+    "dannoBase": 134,
+    "expFornita": 708,
+    "moneteRilasciate": 531
+  },
+  {
+    "nome": "BOSS: Corrotto Diavolo",
+    "puntiVitaMax": 1611,
+    "elemento": "OMBRA",
+    "dannoBase": 189,
+    "expFornita": 716,
+    "moneteRilasciate": 537
+  },
+  {
+    "nome": "Antico Demone",
+    "puntiVitaMax": 1086,
+    "elemento": "TERRA",
+    "dannoBase": 137,
+    "expFornita": 724,
+    "moneteRilasciate": 543
+  },
+  {
+    "nome": "Gelido Zombi",
+    "puntiVitaMax": 1098,
+    "elemento": "ARIA",
+    "dannoBase": 138,
+    "expFornita": 732,
+    "moneteRilasciate": 549
+  },
+  {
+    "nome": "BOSS: Corrotto Diavolo",
+    "puntiVitaMax": 1665,
+    "elemento": "FULMINE",
+    "dannoBase": 196,
+    "expFornita": 740,
+    "moneteRilasciate": 555
+  },
+  {
+    "nome": "Gelido Scheletro",
+    "puntiVitaMax": 1122,
+    "elemento": "OMBRA",
+    "dannoBase": 141,
+    "expFornita": 748,
+    "moneteRilasciate": 561
+  },
+  {
+    "nome": "Oscuro Lich",
+    "puntiVitaMax": 1134,
+    "elemento": "OMBRA",
+    "dannoBase": 143,
+    "expFornita": 756,
+    "moneteRilasciate": 567
+  },
+  {
+    "nome": "BOSS: Gigante Orco",
+    "puntiVitaMax": 1719,
+    "elemento": "FUOCO",
+    "dannoBase": 202,
+    "expFornita": 764,
+    "moneteRilasciate": 573
+  },
+  {
+    "nome": "Piccolo Grifone",
+    "puntiVitaMax": 1158,
+    "elemento": "PIANTA",
+    "dannoBase": 146,
+    "expFornita": 772,
+    "moneteRilasciate": 579
+  },
+  {
+    "nome": "Feroce Troll",
+    "puntiVitaMax": 1170,
+    "elemento": "ARIA",
+    "dannoBase": 147,
+    "expFornita": 780,
+    "moneteRilasciate": 585
+  },
+  {
+    "nome": "BOSS: Etereo Manticora",
+    "puntiVitaMax": 1773,
+    "elemento": "ARIA",
+    "dannoBase": 208,
+    "expFornita": 788,
+    "moneteRilasciate": 591
+  },
+  {
+    "nome": "Feroce Arpia",
+    "puntiVitaMax": 1194,
+    "elemento": "ARIA",
+    "dannoBase": 150,
+    "expFornita": 796,
+    "moneteRilasciate": 597
+  },
+  {
+    "nome": "Etereo Chimera",
+    "puntiVitaMax": 1206,
+    "elemento": "FULMINE",
+    "dannoBase": 152,
+    "expFornita": 804,
+    "moneteRilasciate": 603
+  },
+  {
+    "nome": "BOSS: Oscuro Orco",
+    "puntiVitaMax": 1827,
+    "elemento": "LUCE",
+    "dannoBase": 214,
+    "expFornita": 812,
+    "moneteRilasciate": 609
+  },
+  {
+    "nome": "Spettrale Viverna",
+    "puntiVitaMax": 1230,
+    "elemento": "ACQUA",
+    "dannoBase": 155,
+    "expFornita": 820,
+    "moneteRilasciate": 615
+  }
+]
