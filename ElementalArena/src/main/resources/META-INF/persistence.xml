@@ -1,0 +1,32 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
+             version="3.1">
+
+    <persistence-unit name="ElementalArenaPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>it.unicam.cs.mpgc.rpg126161.model.Entita</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Eroe</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Mostro</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Oggetto</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Arma</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Pozione</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Negozio</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Inventario</class>
+        <class>it.unicam.cs.mpgc.rpg126161.model.Partita</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./arenaDB;AUTO_SERVER=TRUE"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

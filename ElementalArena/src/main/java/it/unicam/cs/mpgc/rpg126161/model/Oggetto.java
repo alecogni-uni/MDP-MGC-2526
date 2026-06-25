@@ -1,20 +1,26 @@
 package it.unicam.cs.mpgc.rpg126161.model;
 
 import lombok.Getter;
+import jakarta.persistence.*;
 
-/**
- * Classe base per tutti gli oggetti del gioco (Armi, Pozioni, etc.)
- */
 @Getter
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Oggetto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nome;
     private int valore;
+
+    protected Oggetto() {} // Costruttore vuoto per JPA
 
     public Oggetto(String nome, int valore) {
         this.nome = nome;
         this.valore = valore;
     }
 
-    // Metodo astratto: ogni oggetto si "usa" in modo diverso
     public abstract void usa(Eroe eroe);
 }

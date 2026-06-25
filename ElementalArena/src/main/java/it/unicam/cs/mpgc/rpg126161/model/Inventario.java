@@ -1,12 +1,23 @@
 package it.unicam.cs.mpgc.rpg126161.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gestisce la collezione di oggetti posseduti da un'entità.
+ * Gestisce la collezione di oggetti.
+ * Ora espone metodi per l'uso e la rimozione automatica.
  */
+@Getter
+@Entity
 public class Inventario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Oggetto> oggetti;
 
     public Inventario() {
@@ -15,40 +26,23 @@ public class Inventario {
 
     public void aggiungi(Oggetto o) {
         this.oggetti.add(o);
-        System.out.println("📦 Aggiunto all'inventario: " + o.getNome());
     }
 
-    public void rimuovi(Oggetto o) {
-        this.oggetti.remove(o);
+    // L'inventario ora sa che se un oggetto è una pozione, va rimosso dopo l'uso
+    public void consumaOggetto(int indice, Eroe eroe) {
+        Oggetto o = getOggetto(indice);
+        if (o != null) {
+            o.usa(eroe);
+            if (o instanceof Pozione) {
+                this.oggetti.remove(o);
+            }
+        }
     }
 
     public Oggetto getOggetto(int indice) {
-        if (indice >= 0 && indice < oggetti.size()) {
-            return oggetti.get(indice);
-        }
-        return null;
+        return (indice >= 0 && indice < oggetti.size()) ? oggetti.get(indice) : null;
     }
 
-    public int getDimensione() {
-        return oggetti.size();
-    }
-
-    public boolean isVuoto() {
-        return oggetti.isEmpty();
-    }
-
-    public void mostraContenuto() {
-        if (isVuoto()) {
-            System.out.println("L'inventario è vuoto.");
-            return;
-        }
-        for (int i = 0; i < oggetti.size(); i++) {
-            System.out.println("[" + i + "] " + oggetti.get(i).getNome());
-        }
-    }
-
-    // Serve a Gson per salvare i dati
-    public List<Oggetto> getOggetti() {
-        return oggetti;
-    }
+    public int getDimensione() { return oggetti.size(); }
+    public boolean isVuoto() { return oggetti.isEmpty(); }
 }

@@ -1,18 +1,32 @@
 package it.unicam.cs.mpgc.rpg126161.model;
 
 import lombok.Getter;
+import lombok.Setter;
+import jakarta.persistence.*;
 
 /**
- * Classe base astratta per tutte le creature viventi del gioco.
- * Implementa i comportamenti comuni dell'interfaccia Combattente.
+ * Classe base astratta che modella qualsiasi entità dotata di punti vita e nome.
+ * Implementa {@link Combattente} per garantire la compatibilità con il sistema di scontro.
+ * Utilizza la strategia di mapping JOINED per mantenere separate le tabelle nel DB.
  */
 @Getter
+@Setter
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Entita implements Combattente {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nome;
     private int puntiVitaMax;
     private int puntiVitaAttuali;
+
+    @Enumerated(EnumType.STRING)
     private Elemento elemento;
+
+    protected Entita() {}
 
     public Entita(String nome, int puntiVitaMax, Elemento elemento) {
         this.nome = nome;
@@ -21,28 +35,20 @@ public abstract class Entita implements Combattente {
         this.elemento = elemento;
     }
 
+    /**
+     * Applica il danno subito, assicurandosi che i punti vita non scendano mai sotto lo zero.
+     */
     @Override
     public void riceviDanno(int danno) {
-        this.puntiVitaAttuali -= danno;
-        if (this.puntiVitaAttuali < 0) {
-            this.puntiVitaAttuali = 0;
-        }
+        this.puntiVitaAttuali = Math.max(0, this.puntiVitaAttuali - danno);
     }
 
     /**
-     * Ripristina i punti vita senza superare il limite massimo.
+     * Ripristina i punti vita senza superare il limite massimo (puntiVitaMax).
      */
     public void curati(int quantita) {
-        // Blocco di sicurezza: se l'entità non è viva, non può essere curata
-        if (!this.isVivo()) {
-            System.out.println("💀 " + this.nome + " è a terra! Le cure normali non hanno effetto.");
-            return;
-        }
-
-        this.puntiVitaAttuali += quantita;
-        if (this.puntiVitaAttuali > this.puntiVitaMax) {
-            this.puntiVitaAttuali = this.puntiVitaMax;
-        }
+        if (!this.isVivo()) return;
+        this.puntiVitaAttuali = Math.min(this.puntiVitaMax, this.puntiVitaAttuali + quantita);
     }
 
     @Override
@@ -52,6 +58,13 @@ public abstract class Entita implements Combattente {
 
     @Override
     public Elemento getElementoDifesa() {
-        return this.elemento; // difesa col proprio elemento naturale
+        return this.elemento;
+    }
+
+    /**
+     * Resetta lo stato vitale all'inizio di un nuovo incontro.
+     */
+    public void ripristinaVitaCompletamente() {
+        this.puntiVitaAttuali = this.puntiVitaMax;
     }
 }

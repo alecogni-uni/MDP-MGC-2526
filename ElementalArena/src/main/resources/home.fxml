@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #222222; -fx-padding: 30;"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="it.unicam.cs.mpgc.rpg126161.controller.HomeController">
+
+    <Label fx:id="lblDungeon" text="📍 SCONTRO ATTUALE: 1" style="-fx-text-fill: #ffd700; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <VBox alignment="CENTER" spacing="5.0" style="-fx-background-color: #333333; -fx-padding: 15; -fx-background-radius: 10; -fx-min-width: 400px;">
+        <Label fx:id="lblNome" text="Eroe: -" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+        <Label fx:id="lblHp" text="HP: - / -" style="-fx-text-fill: #ff4d4d; -fx-font-weight: bold;"/>
+        <Label fx:id="lblMonete" text="Monete: 💰 0" style="-fx-text-fill: #ffd700;"/>
+        <Label fx:id="lblArma" text="Arma: 🗡️ Mani Nude" style="-fx-text-fill: #b3d9ff;"/>
+    </VBox>
+
+    <VBox alignment="CENTER" spacing="12.0">
+        <Button text="⚔️ AFFRONTA IL PROSSIMO MOSTRO" onAction="#handleCombattimento" style="-fx-font-size: 16px; -fx-min-width: 300px; -fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
+        <Button text="🏪 VISITA IL NEGOZIO" onAction="#handleNegozio" style="-fx-font-size: 14px; -fx-min-width: 300px; -fx-cursor: hand;"/>
+        <Button text="🎒 APRI INVENTARIO" onAction="#handleInventario" style="-fx-font-size: 14px; -fx-min-width: 300px; -fx-cursor: hand;"/>
+        <Button text="💾 SALVA PARTITA (DB)" onAction="#handleSalva" style="-fx-font-size: 14px; -fx-min-width: 300px; -fx-background-color: #28a745; -fx-text-fill: white; -fx-cursor: hand;"/>
+    </VBox>
+
+    <Button text="🚪 Esci al Menu Principale" onAction="#handleEsci" style="-fx-cursor: hand; -fx-margin-top: 15;"/>
+
+</VBox>

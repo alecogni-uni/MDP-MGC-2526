@@ -1,0 +1,7 @@
+[
+  { "nome": "Daga Arrugginita", "dannoBase": 5, "valore": 10, "elemento": "PIANTA" },
+  { "nome": "Spada di Ferro", "dannoBase": 15, "valore": 50, "elemento": "TERRA" },
+  { "nome": "Arco dell'Eroe", "dannoBase": 25, "valore": 150, "elemento": "ARIA" },
+  { "nome": "Spada della Luce", "dannoBase": 40, "valore": 300, "elemento": "LUCE" },
+  { "nome": "Ascia del Demone", "dannoBase": 60, "valore": 500, "elemento": "OSCURITA" }
+]

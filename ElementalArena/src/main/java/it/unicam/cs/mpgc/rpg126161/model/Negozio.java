@@ -1,77 +1,75 @@
 package it.unicam.cs.mpgc.rpg126161.model;
 
+import lombok.Getter;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gestisce l'acquisto di armi e pozioni.
+ * Gestisce l'inventario degli oggetti in vendita e la logica di acquisto.
  */
+@Getter
+@Entity
 public class Negozio {
-    private List<Arma> armiInVendita;
-    private List<Pozione> pozioniInVendita;
 
-    public Negozio() {
-        this.armiInVendita = new ArrayList<>();
-        this.pozioniInVendita = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        // Reparto Armi (Si esauriscono quando comprate)
-        armiInVendita.add(new Arma("Ascia di Terra", 15, Elemento.TERRA, 30));
-        armiInVendita.add(new Arma("Arco del Vento", 20, Elemento.ARIA, 60));
-        armiInVendita.add(new Arma("Spada della Luce", 35, Elemento.LUCE, 120));
+    private String nomeShop;
 
-        // Reparto Pozioni (Rifornimento infinito)
-        pozioniInVendita.add(new Pozione("Pozione Piccola (Cur. 25%)", 25, 10));
-        pozioniInVendita.add(new Pozione("Pozione Media (Cur. 50%)", 50, 25));
-        pozioniInVendita.add(new Pozione("Elisir Totale (Cur. 100%)", 100, 60));
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Oggetto> articoliInVendita;
+
+    protected Negozio() {}
+
+    public Negozio(String nomeShop) {
+        this.nomeShop = nomeShop;
+        this.articoliInVendita = new ArrayList<>();
     }
 
-    public void mostraRepartoArmi(Eroe eroe) {
-        System.out.println("\n⚔️ --- REPARTO ARMI --- ⚔️");
-        for (int i = 0; i < armiInVendita.size(); i++) {
-            Arma a = armiInVendita.get(i);
-            System.out.println("[" + (i + 1) + "] " + a.getNome() + " | Danno: " + a.getDannoBase() + " | Elem: " + a.getElemento() + " | 💰 " + a.getValore());
+    /**
+     * Aggiunge un singolo articolo alla vetrina.
+     */
+    public void aggiungiArticolo(Oggetto o) {
+        this.articoliInVendita.add(o);
+    }
+
+    /**
+     * Metodo di utilità per popolare il negozio con una lista (es. caricata da JSON).
+     */
+    public void popolaNegozio(List<Arma> armi) {
+        for (Arma a : armi) {
+            this.aggiungiArticolo(a);
         }
     }
 
-    public void compraArma(Eroe eroe, int indice) {
-        if (indice < 1 || indice > armiInVendita.size()) {
-            System.out.println("❌ Scelta non valida.");
+    /**
+     * Gestisce la transazione di acquisto tra Eroe e Negozio.
+     * @param eroe L'eroe che effettua l'acquisto.
+     * @param indice L'indice dell'oggetto nella lista.
+     */
+    public void compraArticolo(Eroe eroe, int indice) {
+        // Indice passato come 1-based (dal menu) convertito in 0-based
+        int indiceReale = indice - 1;
+
+        if (indiceReale < 0 || indiceReale >= articoliInVendita.size()) {
             return;
         }
 
-        Arma arma = armiInVendita.get(indice - 1);
-        if (eroe.spendiMonete(arma.getValore())) {
-            // USIAMO IL NUOVO INVENTARIO
-            eroe.getInventario().aggiungi(arma);
-            System.out.println("🛒 Acquistata con successo: " + arma.getNome() + "!");
-            armiInVendita.remove(arma); // Rimuove l'arma dal negozio
-        } else {
-            System.out.println("❌ Non hai abbastanza monete!");
-        }
-    }
+        Oggetto oggettoScelto = articoliInVendita.get(indiceReale);
 
-    public void mostraRepartoPozioni(Eroe eroe) {
-        System.out.println("\n🧪 --- REPARTO POZIONI --- 🧪");
-        for (int i = 0; i < pozioniInVendita.size(); i++) {
-            Pozione p = pozioniInVendita.get(i);
-            System.out.println("[" + (i + 1) + "] " + p.getNome() + " | 💰 " + p.getValore());
-        }
-    }
-
-    public void compraPozione(Eroe eroe, int indice) {
-        if (indice < 1 || indice > pozioniInVendita.size()) {
-            System.out.println("❌ Scelta non valida.");
-            return;
-        }
-
-        Pozione pozioneTemplate = pozioniInVendita.get(indice - 1);
-        if (eroe.spendiMonete(pozioneTemplate.getValore())) {
-            // Creiamo una nuova istanza della pozione e la mettiamo nel NUOVO INVENTARIO
-            Pozione nuovaPozione = new Pozione(pozioneTemplate.getNome(), pozioneTemplate.getPercentualeCura(), pozioneTemplate.getValore());
-            eroe.getInventario().aggiungi(nuovaPozione);
-            System.out.println("🛒 Acquistata con successo: " + nuovaPozione.getNome() + "!");
-        } else {
-            System.out.println("❌ Non hai abbastanza monete!");
+        if (eroe.spendiMonete(oggettoScelto.getValore())) {
+            // Se è una pozione, ne aggiungiamo una copia (per permettere acquisti multipli)
+            if (oggettoScelto instanceof Pozione) {
+                Pozione p = (Pozione) oggettoScelto;
+                eroe.getInventario().aggiungi(new Pozione(p.getNome(), p.getPercentualeCura(), p.getValore()));
+            }
+            // Se è un'arma, è un pezzo unico: la spostiamo dal negozio all'inventario
+            else if (oggettoScelto instanceof Arma) {
+                eroe.getInventario().aggiungi(oggettoScelto);
+                articoliInVendita.remove(oggettoScelto);
+            }
         }
     }
 }
