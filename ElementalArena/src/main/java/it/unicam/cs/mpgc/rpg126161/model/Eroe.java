@@ -95,4 +95,12 @@ public class Eroe extends Entita {
         return "⚔ " + this.getNome() + " si prepara ad attaccare con " +
                 (armaEquipaggiata != null ? armaEquipaggiata.getNome() : "Mani Nude");
     }
+    @Override
+    public int getPotenzaAttacco() {
+        int attaccoTotale = this.getForza();
+        if (this.armaEquipaggiata != null) {
+            attaccoTotale += this.armaEquipaggiata.getDannoBase();
+        }
+        return attaccoTotale;
+    }
 }

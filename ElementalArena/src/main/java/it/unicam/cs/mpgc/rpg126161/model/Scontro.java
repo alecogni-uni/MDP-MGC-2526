@@ -9,38 +9,27 @@ public class Scontro {
 
     private final Combattente eroe;
     private final Combattente nemico;
-    private int turno;
+
 
     public Scontro(Combattente eroe, Combattente nemico) {
         this.eroe = eroe;
         this.nemico = nemico;
-        this.turno = 1;
     }
 
     /**
-     * Esegue l'attacco tra due combattenti.
-     * Centralizza il calcolo dei danni e l'applicazione al difensore.
+     * Esegue l'attacco tra due combattenti sfruttando il polimorfismo.
      */
     public String eseguiAttacco(Combattente attaccante, Combattente difensore) {
         // Calcolo basato sugli elementi
         double mult = attaccante.getElementoAttacco().getMoltiplicatore(difensore.getElementoDifesa());
 
-        // Estrazione valore offensivo polimorfico
-        int forza = getForzaCombattente(attaccante);
+        // uso interfaccia per ottenere la forza di attacco
+        int forza = attaccante.getPotenzaAttacco();
+
         int danno = (int) (forza * mult);
 
         difensore.riceviDanno(danno);
         return attaccante.getNome() + " colpisce " + difensore.getNome() + " per " + danno + " danni!";
     }
 
-    private int getForzaCombattente(Combattente c) {
-        if (c instanceof Eroe) return ((Eroe) c).getForza() + (c.getElementoAttacco() != null ? 5 : 0); // Esempio logica
-        if (c instanceof Mostro) return ((Mostro) c).getDannoBase();
-        return 5; // Default
-    }
-
-    public String eseguiTurnoNemico() {
-        turno++;
-        return nemico.isVivo() ? eseguiAttacco(nemico, eroe) : "";
-    }
 }

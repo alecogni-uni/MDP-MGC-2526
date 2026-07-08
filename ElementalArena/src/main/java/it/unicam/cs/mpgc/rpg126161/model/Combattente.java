@@ -27,4 +27,8 @@ public interface Combattente {
      * @return Una stringa descrittiva dell'azione (log di battaglia).
      */
     String attacca(Combattente bersaglio);
+    /**
+     * Restituisce la potenza di attacco totale del combattente.
+     */
+    int getPotenzaAttacco();
 }
