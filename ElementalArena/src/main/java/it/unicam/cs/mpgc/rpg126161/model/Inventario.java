@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gestisce la collezione di oggetti.
- * Ora espone metodi per l'uso e la rimozione automatica.
+ * Gestisce la collezione di oggetti dell'Eroe.
  */
 @Getter
 @Entity
@@ -28,12 +27,16 @@ public class Inventario {
         this.oggetti.add(o);
     }
 
-    // L'inventario ora sa che se un oggetto è una pozione, va rimosso dopo l'uso
+    /**
+     * Usa l'oggetto e lo rimuove dall'inventario se necessario.
+     */
     public void consumaOggetto(int indice, Eroe eroe) {
         Oggetto o = getOggetto(indice);
         if (o != null) {
             o.usa(eroe);
-            if (o instanceof Pozione) {
+
+            // Se l'oggetto è consumabile, lo rimuoviamo dall'inventario
+            if (o.isConsumabile()) {
                 this.oggetti.remove(o);
             }
         }
@@ -43,6 +46,11 @@ public class Inventario {
         return (indice >= 0 && indice < oggetti.size()) ? oggetti.get(indice) : null;
     }
 
-    public int getDimensione() { return oggetti.size(); }
-    public boolean isVuoto() { return oggetti.isEmpty(); }
+    public int getDimensione() {
+        return oggetti.size();
+    }
+
+    public boolean isVuoto() {
+        return oggetti.isEmpty();
+    }
 }

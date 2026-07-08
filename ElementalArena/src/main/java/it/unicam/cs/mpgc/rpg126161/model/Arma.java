@@ -16,7 +16,6 @@ public class Arma extends Oggetto {
     @Enumerated(EnumType.STRING)
     private Elemento elemento;
 
-    // Costruttore per JPA
     protected Arma() {}
 
     public Arma(String nome, int dannoBase, Elemento elemento, int valore) {
@@ -32,5 +31,10 @@ public class Arma extends Oggetto {
     @Override
     public void usa(Eroe eroe) {
         eroe.equipaggiaArma(this);
+    }
+
+    @Override
+    public Oggetto copia() {
+        return this; // Restituisce l'arma fisica stessa, senza clonarla
     }
 }
