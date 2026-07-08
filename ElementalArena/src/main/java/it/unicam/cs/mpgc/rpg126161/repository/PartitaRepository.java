@@ -55,4 +55,20 @@ public class PartitaRepository {
             em.close();
         }
     }
+
+    /**
+     * Verifica se esiste almeno un salvataggio nel database.
+     */
+    public boolean hasSalvataggi() {
+        EntityManager em = DatabaseManager.getInstance().getEntityManager();
+        try {
+            Long count = em.createQuery("SELECT COUNT(p) FROM Partita p", Long.class).getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
 }
