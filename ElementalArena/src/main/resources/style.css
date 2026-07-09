@@ -80,3 +80,72 @@
     -fx-highlight-fill: #004400;
     -fx-highlight-text-fill: #00ff00;
 }
+
+/* =========================================
+   SCHERMATA HOME - SCHEDA EROE E BOTTONI
+   ========================================= */
+
+/* Il pannello contenitore delle statistiche dell'eroe */
+.hero-card {
+    -fx-background-color: #242424;
+    -fx-border-color: #ffd700; /* Bordo dorato sottile */
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 20px;
+    -fx-min-width: 450px;
+    -fx-max-width: 450px;
+    /* Effetto ombra interna/esterna*/
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0, 0, 0);
+}
+
+/* Dettagli dei testi nella scheda eroe */
+.hero-stat-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.hero-stat-hp {
+    -fx-text-fill: #ff4d4d; /* Rosso vivo per la vita */
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.hero-stat-gold {
+    -fx-text-fill: #ffd700; /* Oro per le monete */
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.hero-stat-weapon {
+    -fx-text-fill: #82b1ff; /* Blu chiaro magico per l'arma */
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+/* Variante del bottone per il COMBATTIMENTO */
+.combat-button {
+    -fx-background-color: #4a1515;
+    -fx-border-color: #c9302c;
+    -fx-text-fill: #ff9999;
+}
+.combat-button:hover {
+    -fx-background-color: #731f1f;
+    -fx-border-color: #ff4d4d;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(255, 77, 77, 0.4), 10, 0.5, 0, 0);
+}
+
+/* Variante del bottone per il SALVATAGGIO*/
+.save-button {
+    -fx-background-color: #143d1f;
+    -fx-border-color: #28a745;
+    -fx-text-fill: #99ff99;
+}
+.save-button:hover {
+    -fx-background-color: #1e5c2f;
+    -fx-border-color: #2ecc71;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(46, 204, 113, 0.4), 10, 0.5, 0, 0);
+}
