@@ -5,27 +5,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
-<?import java.net.URL?>
 
-<VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: #2b2b2b; -fx-padding: 20;"
+<VBox alignment="CENTER" spacing="20.0" styleClass="menu-root"
       xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="it.unicam.cs.mpgc.rpg126161.controller.InventarioController">
 
-    <stylesheets>
-        <URL value="@style.css" />
-    </stylesheets>
+    <Label text="INVENTARIO DI GIOCO" styleClass="title-label" style="-fx-font-size: 32px; -fx-padding: 0 0 10 0;"/>
 
-    <Label text="≡ INVENTARIO DI GIOCO" style="-fx-text-fill: #ffd700; -fx-font-weight: bold; -fx-font-size: 24px;"/>
+    <Label fx:id="lblFeedback" text="Clicca su Usa/Equipaggia sotto l'oggetto desiderato" styleClass="feedback-label"/>
 
-    <Label fx:id="lblFeedback" text="Clicca su Usa/Equipaggia sotto l'oggetto desiderato" style="-fx-text-fill: #aaaaaa;"/>
-
-    <ScrollPane fitToWidth="true" prefHeight="300.0" maxWidth="500.0">
+    <ScrollPane fitToWidth="true" prefHeight="350.0" maxWidth="650.0" styleClass="scroll-pane">
         <content>
-            <FlowPane fx:id="grigliaOggetti" hgap="15.0" vgap="15.0" alignment="CENTER" style="-fx-padding: 10;"/>
+            <FlowPane fx:id="grigliaOggetti" hgap="20.0" vgap="20.0" alignment="CENTER" style="-fx-padding: 15;"/>
         </content>
     </ScrollPane>
 
-    <Button text="Indietro alla Home" onAction="#handleIndietro" style="-fx-cursor: hand; -fx-margin-top: 10; -fx-background-color: #555555; -fx-text-fill: white;"/>
+    <Button text="Indietro alla Home" onAction="#handleIndietro" styleClass="menu-button" style="-fx-min-width: 200px; -fx-font-size: 14px;"/>
 
 </VBox>

@@ -18,6 +18,8 @@ public class MainGUI extends Application {
         cambiaScena("/menu.fxml");
 
         finestraPrincipale.setTitle("Elemental Arena");
+        // Imposta la finestra a schermo intero (massimizzata)
+        finestraPrincipale.setMaximized(true);
         finestraPrincipale.show();
     }
 
@@ -27,7 +29,7 @@ public class MainGUI extends Application {
     public static void cambiaScena(String fxmlPath) {
         try {
             Parent root = FXMLLoader.load(MainGUI.class.getResource(fxmlPath));
-            Scene nuovaScena = new Scene(root, 800, 600);
+            Scene nuovaScena = new Scene(root, 1280, 820);
 
             //Colleghiamo il CSS alla Scena
             String cssPath = MainGUI.class.getResource("/style.css").toExternalForm();

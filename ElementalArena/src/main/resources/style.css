@@ -85,21 +85,19 @@
    SCHERMATA HOME - SCHEDA EROE E BOTTONI
    ========================================= */
 
-/* Il pannello contenitore delle statistiche dell'eroe */
 .hero-card {
     -fx-background-color: #242424;
-    -fx-border-color: #ffd700; /* Bordo dorato sottile */
+    -fx-border-color: #ffd700;
     -fx-border-width: 1px;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
     -fx-padding: 20px;
     -fx-min-width: 450px;
     -fx-max-width: 450px;
-    /* Effetto ombra interna/esterna*/
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0, 0, 0);
 }
 
-/* Dettagli dei testi nella scheda eroe */
+
 .hero-stat-name {
     -fx-text-fill: #ffffff;
     -fx-font-size: 18px;
@@ -107,24 +105,24 @@
 }
 
 .hero-stat-hp {
-    -fx-text-fill: #ff4d4d; /* Rosso vivo per la vita */
+    -fx-text-fill: #ff4d4d;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 
 .hero-stat-gold {
-    -fx-text-fill: #ffd700; /* Oro per le monete */
+    -fx-text-fill: #ffd700;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 
 .hero-stat-weapon {
-    -fx-text-fill: #82b1ff; /* Blu chiaro magico per l'arma */
+    -fx-text-fill: #82b1ff;
     -fx-font-size: 14px;
     -fx-font-style: italic;
 }
 
-/* Variante del bottone per il COMBATTIMENTO */
+
 .combat-button {
     -fx-background-color: #4a1515;
     -fx-border-color: #c9302c;
@@ -137,7 +135,7 @@
     -fx-effect: dropshadow(gaussian, rgba(255, 77, 77, 0.4), 10, 0.5, 0, 0);
 }
 
-/* Variante del bottone per il SALVATAGGIO*/
+
 .save-button {
     -fx-background-color: #143d1f;
     -fx-border-color: #28a745;
@@ -148,4 +146,184 @@
     -fx-border-color: #2ecc71;
     -fx-text-fill: #ffffff;
     -fx-effect: dropshadow(gaussian, rgba(46, 204, 113, 0.4), 10, 0.5, 0, 0);
+}
+
+/* =========================================
+   NEGOZIO
+   ========================================= */
+
+
+.coins-container {
+    -fx-background-color: #1a1a1a;
+    -fx-padding: 10px 25px;
+    -fx-background-radius: 30px;
+    -fx-border-color: #ffd700;
+    -fx-border-radius: 30px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+}
+
+.feedback-label {
+    -fx-text-fill: #aaaaaa;
+    -fx-font-style: italic;
+    -fx-font-size: 14px;
+}
+
+
+.shop-card {
+    -fx-background-color: #2a2a2a;
+    -fx-border-color: #444444;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+}
+
+
+.shop-card:hover {
+    -fx-border-color: #ffd700;
+    -fx-background-color: #333333;
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.2), 15, 0, 0, 0);
+}
+
+/* =========================================
+   ARENA DI COMBATTIMENTO
+   ========================================= */
+
+
+.battle-log {
+    -fx-control-inner-background: #050505;
+    -fx-text-fill: #00ff00;
+    -fx-font-family: 'Consolas', monospace;
+    -fx-font-size: 14px;
+    -fx-border-color: #333333;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-max-width: 650px;
+    -fx-effect: innershadow(gaussian, rgba(0, 255, 0, 0.2), 10, 0, 0, 0);
+}
+
+
+.fighter-panel {
+    -fx-background-color: #2b2b2b;
+    -fx-padding: 15px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-min-width: 280px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0, 0, 0);
+}
+.hero-border { -fx-border-color: #4CAF50; }
+.monster-border { -fx-border-color: #ff4d4d; }
+
+.fighter-name {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-alignment: center;
+}
+
+
+.hp-bar-hero .track, .hp-bar-monster .track {
+    -fx-background-color: #333333;
+    -fx-background-radius: 10px;
+    -fx-border-color: #222222;
+    -fx-border-radius: 10px;
+}
+
+/* Parte piena della barra Eroe (Verde) */
+.hp-bar-hero .bar {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 8px;
+    -fx-padding: 0; /* Rimuove bug grafici interni */
+}
+
+/* Parte piena della barra Mostro (Rosso) */
+.hp-bar-monster .bar {
+    -fx-background-color: #ff4d4d;
+    -fx-background-radius: 8px;
+    -fx-padding: 0;
+}
+
+.hp-label-hero { -fx-text-fill: #4CAF50; -fx-font-weight: bold; -fx-font-size: 14px; }
+.hp-label-monster { -fx-text-fill: #ff4d4d; -fx-font-weight: bold; -fx-font-size: 14px; }
+
+/* =========================================
+   COMBOBOX ARMA RAPIDA (Stile Dark)
+   ========================================= */
+
+.combo-armi {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #555555;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Stile del testo dentro la ComboBox chiusa */
+.combo-armi .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+/* Freccina a destra */
+.combo-armi .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-armi .arrow {
+    -fx-background-color: #ffd700; /* Freccia dorata */
+}
+
+/* Menu a tendina quando viene aperto */
+.combo-armi .list-view {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #555555;
+}
+.combo-armi .list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-padding: 8px;
+}
+.combo-armi .list-view .list-cell:hover,
+.combo-armi .list-view .list-cell:selected {
+    -fx-background-color: #4CAF50; /* Verde quando selezioni un'arma */
+    -fx-text-fill: white;
+}
+
+.fighter-stats-box {
+    -fx-background-color: #1f1f1f;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+}
+.stat-text {
+    -fx-text-fill: #cccccc;
+    -fx-font-size: 13px;
+}
+
+
+.vs-label {
+    -fx-text-fill: #ffeb3b;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-effect: dropshadow(gaussian, rgba(255, 235, 59, 0.5), 10, 0, 0, 0);
+}
+
+
+.legend-container {
+    -fx-background-color: #151515;
+    -fx-padding: 15px;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px 0 0 0;
+    -fx-margin-top: 20px;
+}
+.legend-title { -fx-text-fill: #ffaa00; -fx-font-size: 14px; -fx-font-weight: bold; -fx-letter-spacing: 2px; }
+.legend-subtitle { -fx-text-fill: #888888; -fx-font-size: 12px; -fx-font-style: italic; }
+.legend-box {
+    -fx-background-color: #222222;
+    -fx-padding: 12px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #444444;
+    -fx-border-radius: 8px;
 }

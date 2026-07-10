@@ -12,6 +12,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import java.util.List;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.TextAlignment;
 
 /**
  * Controller per la gestione dell'Emporio (Negozio).
@@ -65,21 +68,27 @@ public class NegozioController {
      * Genera dinamicamente un VBox contenente le informazioni e il bottone di acquisto per un singolo oggetto.
      */
     private VBox creaCardArticolo(Oggetto o, int indice) {
-        VBox card = new VBox(5); // Spaziatura ridotta tra gli elementi
+        VBox card = new VBox(5);
         card.setAlignment(Pos.CENTER);
-        card.setPrefSize(160, 180); // Altezza aumentata per far spazio alle statistiche
-        card.setStyle("-fx-background-color: #3c3f41; -fx-background-radius: 10; -fx-padding: 10;");
+        card.setPrefSize(160, 200); // Un pelo più alta per farci stare l'immagine
+        card.getStyleClass().add("shop-card"); // Applica il nostro nuovo stile CSS figo!
 
-        Label icona = new Label(o instanceof Arma ? "⚔" : "♥");
-        icona.setStyle("-fx-font-size: 30px; -fx-text-fill: " + (o instanceof Arma ? "#ffaa00" : "#ff4d4d"));
+        // 1. Icona Pixel Art (sceglie in base al tipo di oggetto)
+        ImageView iconaOggetto = new ImageView();
+        iconaOggetto.setFitHeight(40);
+        iconaOggetto.setFitWidth(40);
 
+        String imagePath = (o instanceof Arma) ? "/images/sword.png" : "/images/potion.png";
+        iconaOggetto.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+
+        // 2. Nome
         Label nome = new Label(o.getNome());
-        nome.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+        nome.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
         nome.setWrapText(true);
         nome.setTextAlignment(TextAlignment.CENTER);
         nome.setAlignment(Pos.CENTER);
 
-        // Aggiunta di una Label dedicata per le statistiche (garantisce visibilità)
+        // 3. Statistiche (La tua logica originale, perfetta!)
         Label stats = new Label();
         if (o instanceof Arma) {
             Arma a = (Arma) o;
@@ -90,12 +99,16 @@ public class NegozioController {
             stats.setStyle("-fx-text-fill: #ffb3b3; -fx-font-size: 11px;");
         }
 
+        // 4. Prezzo
         Label prezzo = new Label("💰 " + o.getValore());
-        prezzo.setStyle("-fx-text-fill: #ffeb3b; -fx-font-weight: bold; -fx-padding: 5 0 0 0;");
+        prezzo.setStyle("-fx-text-fill: #ffd700; -fx-font-weight: bold; -fx-padding: 5 0 0 0;");
 
+        // 5. Bottone Compra
         Button btnCompra = new Button("Compra");
-        btnCompra.setStyle("-fx-background-color: #28a745; -fx-text-fill: white; -fx-cursor: hand;");
+        btnCompra.getStyleClass().add("menu-button"); // Usa lo stile base dei bottoni
+        btnCompra.setStyle("-fx-font-size: 12px; -fx-padding: 5 10; -fx-min-width: 100px;");
 
+        // Logica d'acquisto (La tua originale)
         btnCompra.setOnAction(e -> {
             if (eroe.getMonete() >= o.getValore()) {
                 negozio.compraArticolo(eroe, indice + 1);
@@ -110,8 +123,7 @@ public class NegozioController {
             aggiornaGriglia();
         });
 
-        // Inserita la Label stats subito sotto il nome
-        card.getChildren().addAll(icona, nome, stats, prezzo, btnCompra);
+        card.getChildren().addAll(iconaOggetto, nome, stats, prezzo, btnCompra);
         return card;
     }
 
