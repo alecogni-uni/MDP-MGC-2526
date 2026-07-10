@@ -11,33 +11,43 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 import java.util.List;
 
 /**
- * Controller per la gestione ESCLUSIVA del caricamento e rimozione dei salvataggi esistenti.
+ * Controller per il caricamento e la rimozione dei salvataggi esistenti.
  */
 public class SalvataggiController {
 
     @FXML private FlowPane grigliaPartite;
 
+    /**
+     * Ricostruisce la griglia dei salvataggi leggendo le partite dal repository.
+     * Viene richiamato anche dopo un'eliminazione per aggiornare la vista.
+     */
     @FXML
     public void initialize() {
-        // Pulisce la griglia (utile quando ricarichiamo la schermata dopo un'eliminazione)
         grigliaPartite.getChildren().clear();
 
-        List<Partita> elencoPartiteDB = Sessione.getPartitaRepo().getTutteLePartite();
+        List<Partita> partite = Sessione.getPartitaRepo().getTutteLePartite();
 
-        if (elencoPartiteDB.isEmpty()) {
+        if (partite.isEmpty()) {
             Label lblVuoto = new Label("Nessun salvataggio trovato. Torna al menu e crea una Nuova Partita!");
             lblVuoto.setStyle("-fx-text-fill: #aaaaaa; -fx-font-style: italic;");
             grigliaPartite.getChildren().add(lblVuoto);
-        } else {
-            for (Partita p : elencoPartiteDB) {
-                grigliaPartite.getChildren().add(creaCardPartita(p));
-            }
+            return;
         }
+
+        partite.stream()
+                .map(this::creaCardPartita)
+                .forEach(grigliaPartite.getChildren()::add);
     }
 
+    /**
+     * Costruisce la card di un salvataggio con riepilogo dell'eroe e i bottoni Carica ed Elimina.
+     * @param p la partita da rappresentare
+     * @return il nodo VBox pronto per la griglia
+     */
     private VBox creaCardPartita(Partita p) {
         Eroe e = p.getEroe();
         VBox card = new VBox(10);
@@ -47,13 +57,12 @@ public class SalvataggiController {
 
         Label nome = new Label(e.getNome().toUpperCase());
         nome.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+
         Label statistiche = new Label("Liv: " + e.getLivello() + " | Scontro: " + (e.getProgressoDungeon() + 1));
         statistiche.setStyle("-fx-text-fill: #aaaaaa; -fx-font-size: 11px;");
 
-
         HBox contenitoreBottoni = new HBox(10);
         contenitoreBottoni.setAlignment(Pos.CENTER);
-
 
         Button btnCarica = new Button("Carica");
         btnCarica.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold;");
@@ -62,14 +71,11 @@ public class SalvataggiController {
             MainGUI.cambiaScena("/home.fxml");
         });
 
-
         Button btnElimina = new Button("🗑️");
         btnElimina.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-cursor: hand;");
         btnElimina.setOnAction(event -> {
-            // Chiama il DB per eliminare
             Sessione.getPartitaRepo().eliminaPartita(p);
-            // Ricarica la grafica istantaneamente
-            initialize();
+            initialize(); // ricostruisce la griglia dopo l'eliminazione
         });
 
         contenitoreBottoni.getChildren().addAll(btnCarica, btnElimina);
@@ -78,6 +84,9 @@ public class SalvataggiController {
         return card;
     }
 
+    /**
+     * Torna al menu principale.
+     */
     @FXML
     public void handleIndietro(ActionEvent event) {
         MainGUI.cambiaScena("/menu.fxml");

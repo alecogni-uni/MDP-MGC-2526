@@ -35,6 +35,36 @@ public class Arma extends Oggetto {
 
     @Override
     public Oggetto copia() {
-        return this; // Restituisce l'arma fisica stessa, senza clonarla
+        return this; // restituisce l'arma stesa, senza clonarla.
+    }
+
+    @Override
+    public String getIconPath() {
+        return "/images/sword.png";
+    }
+
+    @Override
+    public String getDescrizione() {
+        // nome seguito da elemento e danno
+        return getNome() + " " + elemento + " | ATK: " + dannoBase;
+    }
+
+    @Override
+    public String getEtichettaAzione() {
+        return "Equipaggia";
+    }
+
+    @Override
+    public boolean isEquipaggiabile() {
+        return true;
+    }
+
+    /**
+     * L'arma è equipaggiata se coincide (per nome) con quella attualmente impugnata dall'eroe.
+     */
+    @Override
+    public boolean isEquipaggiato(Eroe eroe) {
+        Arma equipaggiata = eroe.getArmaEquipaggiata();
+        return equipaggiata != null && getNome().equals(equipaggiata.getNome());
     }
 }

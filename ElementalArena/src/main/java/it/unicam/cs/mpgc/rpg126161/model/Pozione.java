@@ -3,16 +3,15 @@ package it.unicam.cs.mpgc.rpg126161.model;
 import lombok.Getter;
 import jakarta.persistence.*;
 
-@Getter
-@Entity
 /**
  * Rappresenta una pozione utilizzabile nel gioco.
  * Estende la classe base Oggetto.
  */
+@Getter
+@Entity
 public class Pozione extends Oggetto {
 
     private int percentualeCura;
-
 
     protected Pozione() {}
 
@@ -28,7 +27,7 @@ public class Pozione extends Oggetto {
         System.out.println("🧪 " + eroe.getNome() + " ha usato " + getNome()); // stringa per GUI
     }
 
-    // L'inventario userà questo metodo polimorfico
+    // L'inventario usa questo metodo polimorfico per decidere se rimuovere l'oggetto dopo l'uso.
     @Override
     public boolean isConsumabile() {
         return true;
@@ -36,12 +35,25 @@ public class Pozione extends Oggetto {
 
     @Override
     public Oggetto copia() {
-        // Restituisce un nuovo oggetto clonato (così il negozio tiene il suo, e l'eroe prende questo)
+        // Restituisce un nuovo oggetto clonato (così il negozio tiene il suo, e l'eroe prende questo).
         return new Pozione(this.getNome(), this.percentualeCura, this.getValore());
     }
 
     @Override
     public boolean isPezzoUnico() {
-        return false; // Non scompare dal negozio dopo l'acquisto
+        return false; // Non scompare dal negozio dopo l'acquisto.
     }
+
+    @Override
+    public String getIconPath() {
+        return "/images/potion.png";
+    }
+
+    @Override
+    public String getDescrizione() {
+        return "Consumabile";
+    }
+
+    // getEtichettaAzione() eredita "Usa" dalla classe base.
+    // isEquipaggiabile() e isEquipaggiato() ereditano false: una pozione non si equipaggia.
 }

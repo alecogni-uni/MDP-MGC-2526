@@ -13,7 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Controller per la gestione dinamica dell'inventario.
@@ -43,61 +45,53 @@ public class InventarioController {
             return;
         }
 
-        // Genero una card per ogni oggetto nell'inventario
-        for (int i = 0; i < oggetti.size(); i++) {
-            grigliaOggetti.getChildren().add(creaCardOggetto(oggetti.get(i), i));
-        }
+        // Si itera sugli indici della lista perché l'indice serve sia a costruire la card
+        // sia a identificare l'oggetto in usaOggettoDallInventario. Per ogni indice si genera
+        // la card corrispondente e la si aggiunge alla griglia.
+        IntStream.range(0, oggetti.size())
+                .mapToObj(i -> creaCardOggetto(oggetti.get(i), i))
+                .forEach(card -> grigliaOggetti.getChildren().add(card));
     }
 
     private VBox creaCardOggetto(Oggetto o, int indice) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER);
-        card.setPrefSize(160, 200); // Stesse dimensioni del Negozio
-        card.getStyleClass().add("shop-card"); // Ricicliamo la classe CSS fighissima!
+        card.setPrefSize(160, 200); // Stesse dimensioni delle card del Negozio.
+        card.getStyleClass().add("shop-card"); // Si riusa la classe CSS già definita per le card.
 
-        // 1. Icona Pixel Art
+        //il percorso è fornito dall'oggetto.
         ImageView iconaOggetto = new ImageView();
         iconaOggetto.setFitHeight(40);
         iconaOggetto.setFitWidth(40);
+        iconaOggetto.setImage(new Image(getClass().getResourceAsStream(o.getIconPath())));
 
-        String imagePath = (o instanceof Arma) ? "/images/sword.png" : "/images/potion.png";
-        iconaOggetto.setImage(new Image(getClass().getResourceAsStream(imagePath)));
-
-        // 2. Nome
+        // Nome dell'oggetto.
         Label nome = new Label(o.getNome());
         nome.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
         nome.setWrapText(true);
         nome.setTextAlignment(TextAlignment.CENTER);
         nome.setAlignment(Pos.CENTER);
 
-        // 3. Statistiche dell'oggetto
-        Label stats = new Label();
-        if (o instanceof Arma) {
-            Arma a = (Arma) o;
-            stats.setText(a.getElemento() + " | ATK: " + a.getDannoBase());
-            stats.setStyle("-fx-text-fill: #b3d9ff; -fx-font-size: 11px;");
-        } else {
-            stats.setText("Consumabile");
-            stats.setStyle("-fx-text-fill: #ffb3b3; -fx-font-size: 11px;");
-        }
+        // Statistiche: descrizione fornita dall'oggetto, il colore dipende dal tipo.
+        Label stats = new Label(o.getDescrizione());
+        stats.setStyle(o.isEquipaggiabile()
+                ? "-fx-text-fill: #b3d9ff; -fx-font-size: 11px;"
+                : "-fx-text-fill: #ffb3b3; -fx-font-size: 11px;");
 
-        // Verifica stato equipaggiamento
-        boolean isEquipaggiato = (o instanceof Arma) &&
-                (eroe.getArmaEquipaggiata() != null) &&
-                (o.getNome().equals(eroe.getArmaEquipaggiata().getNome()));
+        // Stato equipaggiamento.
+        boolean isEquipaggiato = o.isEquipaggiato(eroe);
 
-        // 4. Bottone di Azione
-        Button btnAzione = new Button(o instanceof Arma ? (isEquipaggiato ? "Equipaggiato" : "Equipaggia") : "Usa");
+        // Bottone di azione: etichetta di default dell'oggetto, o "Equipaggiato" se già impugnato.
+        Button btnAzione = new Button(isEquipaggiato ? "Equipaggiato" : o.getEtichettaAzione());
         btnAzione.getStyleClass().add("menu-button");
 
-        // Gestione stili interattivi
         if (isEquipaggiato) {
-            // Disabilitato e grigio se l'arma è già impugnata
+            // Arma già impugnata: bottone disabilitato e in grigio.
             btnAzione.setStyle("-fx-font-size: 12px; -fx-padding: 5 10; -fx-min-width: 100px; -fx-background-color: #444444; -fx-text-fill: #888888; -fx-border-color: #666666;");
             btnAzione.setDisable(true);
         } else {
-            // Colore dinamico: Blu per le armi, Verde per le pozioni
-            if (o instanceof Arma) {
+            // Colore del bottone in base al tipo: blu per gli equipaggiabili, verde per i consumabili.
+            if (o.isEquipaggiabile()) {
                 btnAzione.setStyle("-fx-font-size: 12px; -fx-padding: 5 10; -fx-min-width: 100px; -fx-background-color: #004085; -fx-border-color: #82b1ff;");
             } else {
                 btnAzione.setStyle("-fx-font-size: 12px; -fx-padding: 5 10; -fx-min-width: 100px; -fx-background-color: #143d1f; -fx-border-color: #28a745;");
@@ -106,8 +100,8 @@ public class InventarioController {
             btnAzione.setOnAction(e -> {
                 eroe.usaOggettoDallInventario(indice);
                 lblFeedback.setText("Utilizzato/Equipaggiato: " + o.getNome());
-                lblFeedback.setStyle("-fx-text-fill: #ffd700; -fx-font-weight: bold;"); // Feedback dorato
-                aggiornaGriglia(); // Refresh della pagina per aggiornare lo stato del tasto
+                lblFeedback.setStyle("-fx-text-fill: #ffd700; -fx-font-weight: bold;");
+                aggiornaGriglia();
             });
         }
 

@@ -14,24 +14,19 @@ public class MenuController {
 
     @FXML
     public void initialize() {
-
+        // Il pulsante "Carica" viene mostrato solo se esiste almeno un salvataggio.
         boolean ciSonoSalvataggi = Sessione.getPartitaRepo().hasSalvataggi();
-
-        if (!ciSonoSalvataggi) {
-            btnCaricaSalvataggio.setVisible(false);
-            btnCaricaSalvataggio.setManaged(false);
-        }
+        btnCaricaSalvataggio.setVisible(ciSonoSalvataggi);
+        btnCaricaSalvataggio.setManaged(ciSonoSalvataggi); // Se non visibile non occupa spazio nel layout
     }
 
     @FXML
     public void handleNuovaPartita(ActionEvent event) {
-        // Naviga verso la schermata di selezione/creazione
         MainGUI.cambiaScena("/nuova-partita.fxml");
     }
 
     @FXML
     public void handleCaricaPartita(ActionEvent event) {
-        // Condividono la stessa schermata dove mostriamo la lista o creiamo il nuovo eroe
         MainGUI.cambiaScena("/salvataggi.fxml");
     }
 

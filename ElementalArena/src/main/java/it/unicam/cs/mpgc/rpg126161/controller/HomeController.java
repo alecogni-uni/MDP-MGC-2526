@@ -9,7 +9,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
+import java.util.Optional;
+
 public class HomeController {
+
+    private static final String NOME_ARMA_DEFAULT = "Mani Nude";
 
     @FXML private Label lblDungeon;
     @FXML private Label lblNome;
@@ -19,6 +23,7 @@ public class HomeController {
 
     @FXML
     public void initialize() {
+        // Se non c'è una partita in sessione usciamo subito.
         Partita p = Sessione.getPartitaCorrente();
         if (p == null) return;
 
@@ -28,7 +33,10 @@ public class HomeController {
         lblHp.setText("HP: " + e.getPuntiVitaAttuali() + " / " + e.getPuntiVitaMax());
         lblMonete.setText("Monete: 💰 " + e.getMonete());
 
-        String arma = (e.getArmaEquipaggiata() != null) ? e.getArmaEquipaggiata().getNome() : "Mani Nude";
+        // se l'arma è assente si usa il valore di default.
+        String arma = Optional.ofNullable(e.getArmaEquipaggiata())
+                .map(a -> a.getNome())
+                .orElse(NOME_ARMA_DEFAULT);
         lblArma.setText("Arma: 🗡️ " + arma);
     }
 
@@ -51,7 +59,7 @@ public class HomeController {
     public void handleSalva(ActionEvent event) {
         Sessione.getPartitaRepo().salvaPartita(Sessione.getPartitaCorrente());
 
-        // Feedback visuale per l'utente
+        // Feedback visuale all'utente dopo il salvataggio.
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Salvataggio");
         alert.setHeaderText(null);
@@ -61,6 +69,7 @@ public class HomeController {
 
     @FXML
     public void handleEsci(ActionEvent event) {
+        // Si azzera la sessione corrente e si torna al menu principale.
         Sessione.setPartitaCorrente(null);
         MainGUI.cambiaScena("/menu.fxml");
     }

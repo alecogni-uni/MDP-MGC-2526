@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gestisce l'inventario degli oggetti in vendita e la logica di acquisto.
+ * Gestisce gli oggetti in vendita e la transazione economica di acquisto.
+ * Non conosce i tipi concreti degli oggetti: il comportamento specifico
+ * (cosa consegnare, se rimuovere l'articolo) è delegato all'oggetto stesso.
  */
 @Getter
 @Entity
@@ -33,14 +35,12 @@ public class Negozio {
     }
 
     /**
-     * Metodo di utilità per popolare il negozio tramite una lista
-     * accetta una lista di una qualsiasi sottoclasse di Oggetto (Arma, Pozione, ecc.)
+     * Popola il negozio con una lista di oggetti di qualsiasi sottoclasse
      */
     public void popolaNegozio(List<? extends Oggetto> oggettiNuovi) {
-        for (Oggetto o : oggettiNuovi) {
-            this.aggiungiArticolo(o);
-        }
+        oggettiNuovi.forEach(this::aggiungiArticolo);
     }
+
     /**
      * Gestisce la transazione di acquisto tra Eroe e Negozio.
      */
@@ -54,10 +54,10 @@ public class Negozio {
         Oggetto oggettoScelto = articoliInVendita.get(indiceReale);
 
         if (eroe.spendiMonete(oggettoScelto.getValore())) {
-            // 1. Chiediamo all'oggetto di fornirci la sua istanza per l'acquisto
+            // L'oggetto fornisce l'istanza da consegnare all'eroe (clone o sé stesso).
             eroe.getInventario().aggiungi(oggettoScelto.copia());
 
-            // 2. Chiediamo all'oggetto se deve sparire dalla vetrina dopo l'acquisto
+            // L'oggetto decide se deve sparire dalla vetrina dopo l'acquisto.
             if (oggettoScelto.isPezzoUnico()) {
                 articoliInVendita.remove(oggettoScelto);
             }

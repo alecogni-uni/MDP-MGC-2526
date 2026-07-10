@@ -49,8 +49,4 @@ public class Inventario {
     public int getDimensione() {
         return oggetti.size();
     }
-
-    public boolean isVuoto() {
-        return oggetti.isEmpty();
-    }
 }

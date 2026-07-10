@@ -15,15 +15,15 @@ import lombok.Setter;
 public class Eroe extends Entita {
 
     // --- COSTANTI DI BILANCIAMENTO (Clean Code) ---
-    private static final int HP_INIZIALI = 70;
+    private static final int HP_INIZIALI = 75;
     private static final int LIVELLO_INIZIALE = 1;
     private static final int ESPERIENZA_INIZIALE = 0;
-    private static final int FORZA_INIZIALE = 8;
-    private static final int MONETE_INIZIALI = 70;
+    private static final int FORZA_INIZIALE = 10;
+    private static final int MONETE_INIZIALI = 80;
     private static final int PROGRESSO_INIZIALE = 0;
 
     private static final int SOGLIA_LEVEL_UP = 100;
-    private static final int INCREMENTO_FORZA_LEVEL_UP = 1;
+    private static final int INCREMENTO_FORZA_LEVEL_UP = 2;
     private static final int INCREMENTO_HP_LEVEL_UP = 5;
 
     private int livello;

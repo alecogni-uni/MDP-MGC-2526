@@ -13,13 +13,18 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
- * Controller per la gestione dell'interfaccia di scontro (GUI).
- * Delega la logica di business ai modelli (Scontro, Mostro, Eroe)
+ * Controller dell'interfaccia di scontro.
+ * Delega la logica di combattimento ai modelli (Scontro, Mostro, Eroe)
  * e si occupa esclusivamente dell'aggiornamento della vista.
  */
 public class ScontroController {
+
+    private static final String MANI_NUDE = "Mani Nude";
+    private static final String NESSUN_CONSUMABILE = "Nessun Consumabile";
+    private static final int MOSTRI_PER_LIVELLO_DIFFICOLTA = 3;
 
     @FXML
     private TextArea txtBattleLog;
@@ -34,12 +39,16 @@ public class ScontroController {
     @FXML
     private ComboBox<String> cmbArmi;
     @FXML
-    private ComboBox<String> cmbPozioni; // Aggiunta tendina per le pozioni
+    private ComboBox<String> cmbPozioni;
 
     private Eroe eroe;
     private Mostro mostro;
     private Scontro arena;
 
+    /**
+     * Prepara lo scontro col nemico corrispondente al progresso nel dungeon.
+     * Se il dungeon è stato completato, mostra lo stato di vittoria finale.
+     */
     @FXML
     public void initialize() {
         this.eroe = Sessione.getPartitaCorrente().getEroe();
@@ -48,7 +57,8 @@ public class ScontroController {
 
         if (livelloDungeon < nemici.size()) {
             mostro = nemici.get(livelloDungeon);
-            mostro.scalaDifficolta(livelloDungeon / 3);
+            // La difficoltà sale di un gradino ogni MOSTRI_PER_LIVELLO_DIFFICOLTA scontri superati.
+            mostro.scalaDifficolta(livelloDungeon / MOSTRI_PER_LIVELLO_DIFFICOLTA);
             arena = new Scontro(eroe, mostro);
 
             inizializzaStatistiche();
@@ -61,6 +71,9 @@ public class ScontroController {
         }
     }
 
+    /**
+     * Popola le etichette di eroe e mostro e inizializza le tendine di armi e consumabili.
+     */
     private void inizializzaStatistiche() {
         lblNomeEroe.setText(eroe.getNome().toUpperCase() + " (Lv." + eroe.getLivello() + ")");
         lblElementoEroe.setText("Elemento: " + eroe.getElemento());
@@ -71,65 +84,63 @@ public class ScontroController {
         lblElementoMostro.setText("Elemento: " + mostro.getElemento());
         lblForzaMostro.setText("Danno Base: " + mostro.getDannoBase());
 
-        cmbArmi.getItems().clear();
-        cmbArmi.getItems().add("Mani Nude");
-
-        for (Oggetto o : eroe.getInventario().getOggetti()) {
-            if (o instanceof Arma) {
-                Arma a = (Arma) o;
-                cmbArmi.getItems().add(formaStringaArma(a));
-            }
-        }
-
-        if (eroe.getArmaEquipaggiata() != null) {
-            cmbArmi.setValue(formaStringaArma(eroe.getArmaEquipaggiata()));
-        } else {
-            cmbArmi.setValue("Mani Nude");
-        }
-
-        // Popola il menu delle pozioni e aggiorna lo stato dei bottoni
-        aggiornaMenuPozioni();
+        aggiornaMenuArmi();
+        aggiornaMenuConsumabili();
     }
 
     /**
-     * Scansiona l'inventario, cerca le pozioni, popola la tendina
-     * e disabilita il bottone se lo zaino è vuoto.
+     * Popola la tendina delle armi con quelle presenti nell'inventario,
+     * più l'opzione "Mani Nude", e seleziona l'arma attualmente equipaggiata.
      */
-    private void aggiornaMenuPozioni() {
+    private void aggiornaMenuArmi() {
+        cmbArmi.getItems().clear();
+        cmbArmi.getItems().add(MANI_NUDE);
+
+        eroe.getInventario().getOggetti().stream()
+                .filter(Oggetto::isEquipaggiabile)   // filtro polimorfico: nessun instanceof
+                .map(o -> (Arma) o)                  // cast sicuro: solo le armi sono equipaggiabili
+                .map(Arma::getDescrizione)           // descrizione completa fornita dall'arma
+                .forEach(cmbArmi.getItems()::add);
+
+        Arma equipaggiata = eroe.getArmaEquipaggiata();
+        cmbArmi.setValue(equipaggiata != null ? equipaggiata.getDescrizione() : MANI_NUDE);
+    }
+
+    /**
+     * Popola la tendina dei consumabili e abilita i relativi controlli
+     * solo se nell'inventario è presente almeno un consumabile.
+     */
+    private void aggiornaMenuConsumabili() {
         cmbPozioni.getItems().clear();
-        boolean haPozioni = false;
 
-        for (Oggetto o : eroe.getInventario().getOggetti()) {
-            if (o instanceof Pozione) {
-                cmbPozioni.getItems().add(o.getNome());
-                haPozioni = true;
-            }
+        eroe.getInventario().getOggetti().stream()
+                .filter(Oggetto::isConsumabile)      // filtro polimorfico: nessun instanceof
+                .map(Oggetto::getNome)
+                .forEach(cmbPozioni.getItems()::add);
+
+        boolean haConsumabili = !cmbPozioni.getItems().isEmpty();
+        if (!haConsumabili) {
+            cmbPozioni.getItems().add(NESSUN_CONSUMABILE);
         }
 
-        if (haPozioni) {
-            cmbPozioni.getSelectionModel().selectFirst();
-            btnPozione.setDisable(false);
-            cmbPozioni.setDisable(false);
-        } else {
-            cmbPozioni.getItems().add("Nessuna Pozione");
-            cmbPozioni.getSelectionModel().selectFirst();
-            btnPozione.setDisable(true);
-            cmbPozioni.setDisable(true);
-        }
+        cmbPozioni.getSelectionModel().selectFirst();
+        btnPozione.setDisable(!haConsumabili);
+        cmbPozioni.setDisable(!haConsumabili);
     }
 
-    private String formaStringaArma(Arma a) {
-        return a.getNome() + " [" + a.getElemento() + " | ATK: " + a.getDannoBase() + "]";
-    }
 
+
+    /**
+     * Aggiorna l'etichetta dell'arma dell'eroe, o mostra "Mani Nude" se disarmato.
+     */
     private void aggiornaTestoArmaEquipaggiata() {
-        if (eroe.getArmaEquipaggiata() != null) {
-            lblArmaEroe.setText("Arma: " + formaStringaArma(eroe.getArmaEquipaggiata()));
-        } else {
-            lblArmaEroe.setText("Arma: Mani Nude");
-        }
+        Arma equipaggiata = eroe.getArmaEquipaggiata();
+        lblArmaEroe.setText("Arma: " + (equipaggiata != null ? equipaggiata.getDescrizione() : MANI_NUDE));
     }
 
+    /**
+     * Sincronizza etichette e barre dei punti vita di eroe e mostro col loro stato attuale.
+     */
     private void aggiornaBarreVita() {
         lblHpEroe.setText("HP: " + eroe.getPuntiVitaAttuali() + " / " + eroe.getPuntiVitaMax());
         barraHpEroe.setProgress((double) eroe.getPuntiVitaAttuali() / eroe.getPuntiVitaMax());
@@ -138,11 +149,19 @@ public class ScontroController {
         barraHpMostro.setProgress((double) mostro.getPuntiVitaAttuali() / mostro.getPuntiVitaMax());
     }
 
+    /**
+     * Aggiunge una riga al log di battaglia e scorre fino in fondo.
+     * @param messaggio il testo da accodare
+     */
     private void scriviLog(String messaggio) {
         txtBattleLog.appendText("\n" + messaggio);
         txtBattleLog.setScrollTop(Double.MAX_VALUE);
     }
 
+    /**
+     * Esegue il turno d'attacco del primo combattente e la reazione del secondo,
+     * gestendo il risultato .
+     */
     @FXML
     public void handleAttacca(ActionEvent event) {
         scriviLog(eroe.attacca(mostro));
@@ -159,30 +178,22 @@ public class ScontroController {
         aggiornaBarreVita();
     }
 
+    /**
+     * Usa il consumabile selezionato .
+     */
     @FXML
     public void handlePozione(ActionEvent event) {
-        String nomePozioneSelezionata = cmbPozioni.getValue();
-        if (nomePozioneSelezionata == null || nomePozioneSelezionata.equals("Nessuna Pozione")) return;
+        String nomeSelezionato = cmbPozioni.getValue();
+        if (nomeSelezionato == null || nomeSelezionato.equals(NESSUN_CONSUMABILE)) return;
 
-        int indicePozione = -1;
+        int indice = trovaIndiceConsumabile(nomeSelezionato);
 
-        // Scorre l'inventario per trovare la pozione esatta
-        for (int i = 0; i < eroe.getInventario().getDimensione(); i++) {
-            Oggetto o = eroe.getInventario().getOggetto(i);
-            if (o instanceof Pozione && o.getNome().equals(nomePozioneSelezionata)) {
-                indicePozione = i;
-                break;
-            }
-        }
+        if (indice != -1) {
+            eroe.usaOggettoDallInventario(indice);
+            scriviLog("♥ Hai consumato: " + nomeSelezionato + "!");
+            aggiornaMenuConsumabili();
 
-        if (indicePozione != -1) {
-            eroe.usaOggettoDallInventario(indicePozione);
-            scriviLog("♥ Hai consumato: " + nomePozioneSelezionata + "!");
-
-            // Aggiorniamo la tendina (una pozione è stata consumata)
-            aggiornaMenuPozioni();
-
-            // Il mostro contrattacca perché curarsi consuma un turno
+            // Usare un consumabile fa saltare il turno.
             scriviLog(mostro.eseguiTurno(eroe, arena));
         }
 
@@ -190,30 +201,52 @@ public class ScontroController {
         aggiornaBarreVita();
     }
 
+    /**
+     * Cerca nell'inventario l'indice del primo consumabile con il nome dato.
+     * @param nome il nome del consumabile da cercare
+     * @return l'indice nell'inventario, oppure -1 se non presente
+     */
+    private int trovaIndiceConsumabile(String nome) {
+        Inventario inventario = eroe.getInventario();
+        return IntStream.range(0, inventario.getDimensione())
+                .filter(i -> {
+                    Oggetto o = inventario.getOggetto(i);
+                    return o.isConsumabile() && o.getNome().equals(nome);
+                })
+                .findFirst()
+                .orElse(-1); // -1 = consumabile non trovato
+    }
+
+    /**
+     * Equipaggia l'arma scelta nella tendina e lo salva nella partita.
+     */
     @FXML
     public void handleCambiaArma(ActionEvent event) {
         String nomeArmaSelezionata = cmbArmi.getValue();
         if (nomeArmaSelezionata == null) return;
 
-        if (nomeArmaSelezionata.equals("Mani Nude")) {
+        if (nomeArmaSelezionata.equals(MANI_NUDE)) {
             eroe.equipaggiaArma(null);
         } else {
-            for (Oggetto o : eroe.getInventario().getOggetti()) {
-                if (o instanceof Arma) {
-                    Arma a = (Arma) o;
-                    if (formaStringaArma(a).equals(nomeArmaSelezionata)) {
-                        eroe.equipaggiaArma(a);
-                        break;
-                    }
-                }
-            }
+            // Si individua nell'inventario l'arma la cui descrizione coincide con quella selezionata.
+            eroe.getInventario().getOggetti().stream()
+                    .filter(Oggetto::isEquipaggiabile)
+                    .map(o -> (Arma) o)
+                    .filter(a -> a.getDescrizione().equals(nomeArmaSelezionata))
+                    .findFirst()
+                    .ifPresent(eroe::equipaggiaArma);
         }
 
         Sessione.getPartitaRepo().salvaPartita(Sessione.getPartitaCorrente());
         aggiornaTestoArmaEquipaggiata();
-        scriviLog("Hai equipaggiato: " + (eroe.getArmaEquipaggiata() != null ? eroe.getArmaEquipaggiata().getNome() : "Mani Nude"));
+
+        Arma equipaggiata = eroe.getArmaEquipaggiata();
+        scriviLog("Hai equipaggiato: " + (equipaggiata != null ? equipaggiata.getNome() : MANI_NUDE));
     }
 
+    /**
+     * Assegna ricompense , avanza nel dungeon e chiude lo scontro come vinto.
+     */
     private void gestisciVittoria() {
         scriviLog("VITTORIA! +XP e +Monete!");
 
@@ -225,15 +258,24 @@ public class ScontroController {
         chiudiBattaglia("Torna alla Home", "#28a745");
     }
 
+    /**
+     * Elimina il salvataggio e chiude lo scontro.
+     */
     private void gestisciSconfitta() {
         scriviLog("SEI MORTO... GAME OVER.");
 
+        // Sconfitta = il salvataggio viene rimosso dal DB.
         Sessione.getPartitaRepo().eliminaPartita(Sessione.getPartitaCorrente());
         Sessione.setPartitaCorrente(null);
 
         chiudiBattaglia("GAME OVER - Torna al Menu", "#d9534f");
     }
 
+    /**
+     * Disabilita le azioni e configura il bottone di uscita con testo e colore dati.
+     * @param testoBottone etichetta del bottone di uscita
+     * @param colore colore di sfondo
+     */
     private void chiudiBattaglia(String testoBottone, String colore) {
         aggiornaBarreVita();
         disabilitaAzioni();
@@ -244,13 +286,19 @@ public class ScontroController {
         btnIndietro.setStyle("-fx-background-color: " + colore + "; -fx-text-fill: white; -fx-font-weight: bold;");
     }
 
+    /**
+     * Disabilita tutti i controlli di gioco
+     */
     private void disabilitaAzioni() {
         btnAttacca.setDisable(true);
         btnPozione.setDisable(true);
         cmbArmi.setDisable(true);
-        cmbPozioni.setDisable(true); // Blocco anche la tendina pozioni
+        cmbPozioni.setDisable(true);
     }
 
+    /**
+     * Torna al menu se non c'è una partita attiva , altrimenti alla home.
+     */
     @FXML
     public void handleIndietro(ActionEvent event) {
         if (Sessione.getPartitaCorrente() == null) {
