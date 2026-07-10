@@ -14,6 +14,18 @@ import lombok.Setter;
 @Entity
 public class Eroe extends Entita {
 
+    // --- COSTANTI DI BILANCIAMENTO (Clean Code) ---
+    private static final int HP_INIZIALI = 70;
+    private static final int LIVELLO_INIZIALE = 1;
+    private static final int ESPERIENZA_INIZIALE = 0;
+    private static final int FORZA_INIZIALE = 8;
+    private static final int MONETE_INIZIALI = 70;
+    private static final int PROGRESSO_INIZIALE = 0;
+
+    private static final int SOGLIA_LEVEL_UP = 100;
+    private static final int INCREMENTO_FORZA_LEVEL_UP = 1;
+    private static final int INCREMENTO_HP_LEVEL_UP = 5;
+
     private int livello;
     private int esperienza;
     private int forza;
@@ -29,12 +41,12 @@ public class Eroe extends Entita {
     protected Eroe() {}
 
     public Eroe(String nome, Elemento elementoBase) {
-        super(nome, 70, elementoBase);
-        this.livello = 1;
-        this.esperienza = 0;
-        this.forza = 8;
-        this.monete = 70;
-        this.progressoDungeon = 0;
+        super(nome, HP_INIZIALI, elementoBase);
+        this.livello = LIVELLO_INIZIALE;
+        this.esperienza = ESPERIENZA_INIZIALE;
+        this.forza = FORZA_INIZIALE;
+        this.monete = MONETE_INIZIALI;
+        this.progressoDungeon = PROGRESSO_INIZIALE;
         this.inventario = new Inventario();
     }
 
@@ -72,11 +84,11 @@ public class Eroe extends Entita {
      */
     public void guadagnaEsperienza(int expOttenuta) {
         this.esperienza += expOttenuta;
-        while (this.esperienza >= 100) {
+        while (this.esperienza >= SOGLIA_LEVEL_UP) {
             this.livello++;
-            this.esperienza -= 100;
-            this.forza += 1;
-            this.setPuntiVitaMax(this.getPuntiVitaMax() + 5);
+            this.esperienza -= SOGLIA_LEVEL_UP;
+            this.forza += INCREMENTO_FORZA_LEVEL_UP;
+            this.setPuntiVitaMax(this.getPuntiVitaMax() + INCREMENTO_HP_LEVEL_UP);
             this.ripristinaVitaCompletamente();
         }
     }
@@ -95,6 +107,7 @@ public class Eroe extends Entita {
         return "⚔ " + this.getNome() + " si prepara ad attaccare con " +
                 (armaEquipaggiata != null ? armaEquipaggiata.getNome() : "Mani Nude");
     }
+
     @Override
     public int getPotenzaAttacco() {
         int attaccoTotale = this.getForza();
