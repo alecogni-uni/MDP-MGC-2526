@@ -29,8 +29,7 @@ cd ElementalArena
 
 ## 🤖 Uso di strumenti di AI
 
-Nel progetto è stato utilizzato un assistente AI come supporto durante la fase di
-refactoring, con le seguenti modalità:
+Nel progetto è stato utilizzato un assistente AI come supporto, con le seguenti modalità:
 
 - **Introduzione delle Stream API**: conversione di alcuni pezzi su collezioni in stream,
   verificando di volta in volta che l'uso fosse pertinente e non forzato.
